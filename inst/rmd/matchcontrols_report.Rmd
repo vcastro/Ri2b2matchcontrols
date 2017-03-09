@@ -1,0 +1,92 @@
+---
+title: "i2b2 Control Matching Results"
+date: '`r strftime(Sys.time(), format = "%B %d, %Y")`'
+output: 
+  html_document:
+    mathjax: null
+    self_contained: true
+    theme: journal
+params:
+  match_data: !r list()
+  case_patientset_name: "None Given"
+  controlpool_patientset_name: "None Given"
+  
+---
+
+&nbsp;<p />
+__Matching Cohorts__
+
+Cohort                       Description
+--------------------------   ----------------------------------------
+Case Patients                `r params$case_patientset_name`
+Control Patients             `r params$controlpool_patientset_name`
+
+&nbsp;<p />
+
+
+```{r display_df, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE}
+library(tableone)
+library(dplyr)
+library(gridExtra)
+library(ggplot2)
+
+
+m<-params$match_data
+
+plot_cat <- function(t) {
+  ggplot(t, aes(x=Var1, y=Freq)) + geom_bar(aes(fill=Var2), position="dodge", stat="identity") + xlab("cohort") + theme_bw()
+}
+
+```
+
+__Cohort Comparison (before matching)__
+
+```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=3}
+
+vars <- m$match_variables
+
+tableone::CreateTableOne(vars = vars, strata = c("cohort"), data = m$match_data, factorVars = c("gender","race"))
+
+
+gridExtra::grid.arrange(
+ggplot(m$match_data, aes(x=cohort, y=age)) + geom_boxplot() + theme_bw(),
+plot_cat(data.frame(prop.table(table(m$match_data$cohort, d$gender),1))),
+plot_cat(data.frame(prop.table(table(m$match_data$cohort, d$race),1))), ncol=3)
+
+
+```
+
+&nbsp;<p />
+__Matching Parameters__
+
+Parameter                    Value
+--------------------------   ----------------------------------------
+Control-to-Case Ratio        `r m$controls_to_match`:1
+Match Variables              `r m$match_variables`
+Matching Technique           Coarsened exact matching (cem)
+
+&nbsp;<p />
+
+__Matching Results__
+
+*Number of matching strata:* `r nrow(m$strata_summary)`<br />
+*Number of strata with insufficient controls:* `r length(m$strata_summary)`
+&nbsp;<p />
+&nbsp;<p />
+
+__Cohort Comparison (after matching)__
+
+```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=3}
+
+final.matched <- m$match_data %>% filter(cohort == "Case" | k2k_control == TRUE)
+
+CreateTableOne(vars = m$match_variables, strata = c("cohort"), data = final.matched, factorVars = c("gender","race"))
+
+gridExtra::grid.arrange(
+ggplot(final.matched, aes(x=cohort, y=age)) + geom_boxplot(),
+plot_cat(data.frame(prop.table(table(final.matched$cohort, final.matched$gender),1))),
+plot_cat(data.frame(prop.table(table(final.matched$cohort, final.matched$race),1))), ncol=3)
+
+m$cem_result$imbalance$L1
+#write.csv(final.matched, "output.csv", row.names = FALSE)
+```
