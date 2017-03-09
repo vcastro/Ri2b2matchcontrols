@@ -1,12 +1,13 @@
 Package: Ri2b2matchcontrols
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Match controls to patients using coarsened exact matching (cem) in i2b2.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Victor M. Castro
+Maintainer: Victor M. Castro <vcastro@mgh.harvard.edu>
+Description: Match controls to patient data derived from an i2b2 patient dimension table.  This
+    package is intended to be used with the i2b2 plugin for match controls but can also be used
+    as a stand-alone package.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: cem,
@@ -16,3 +17,4 @@ Imports: cem,
     tidyr,
     tableone,
     rmarkdown
+RoxygenNote: 6.0.1

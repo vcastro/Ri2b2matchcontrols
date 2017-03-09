@@ -25,11 +25,6 @@ Control Patients             `r params$controlpool_patientset_name`
 
 
 ```{r display_df, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE}
-library(tableone)
-library(dplyr)
-library(gridExtra)
-library(ggplot2)
-
 
 m<-params$match_data
 

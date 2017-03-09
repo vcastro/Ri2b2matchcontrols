@@ -1,3 +1,26 @@
+#' matchcontrols
+#' 
+#' The main match controls function to match controls using cem and generate
+#' an html report and a list of matched controls.
+#'
+#' @param d A data frame of patients with matching variables and cohort field
+#' @param case_patientset_name Name of the case patient set (for report)
+#' @param controlpool_patientset_name Name of the control pool patient set (for report)
+#' @param controls_to_match Number of controls to match to each patient set
+#' @param match_variables A string vector of variable names to use for matching
+#'
+#' @return A list with the elements
+#' \item{report_text}{String of the html report}
+#' \item{html_report}{Full path to html report file in tmp directory}
+#' \item{match_data}{The full patient data frame with match strata and which 
+#'    controls were matched}
+#' \item{cem_data}{The cem object from the cem function.}
+#' \item{matched_controls}{The final list of matched controls (can be used to 
+#'    create an i2b2 patientset)}
+#' @export
+#'
+#' @examples
+#' #Not run
 matchcontrols <- function(d, case_patientset_name = "None Given",
   controlpool_patientset_name = "None Given", controls_to_match = 1,
   match_variables = c("age", "gender", "race")) {
