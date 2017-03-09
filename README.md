@@ -13,6 +13,8 @@ The package can be installed directly from Partners GitLab:
 ``` r
 install.packages("devtools")
 
-creds = git2r::cred_ssh_key("C:\\Users\\vc070\\.ssh\\id_rsa.pub", "C:\\Users\\vc070\\.ssh\\id_rsa")
-devtools::install_git("git@gitlab.partners.org:vc070/Ri2b2matchcontrols.git", credentials = git2r::cred_ssh_key())
+## Windows credentials store (will be different in Mac)
+creds = git2r::cred_ssh_key("C:\\Users\\{username}\\.ssh\\id_rsa.pub", "C:\\Users\\{username}\\.ssh\\id_rsa")
+
+devtools::install_git("git@gitlab.partners.org:vc070/Ri2b2matchcontrols.git", credentials = creds)
 ```
