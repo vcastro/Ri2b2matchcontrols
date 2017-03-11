@@ -1,3 +1,16 @@
+#' plot_matchvars 
+#' 
+#'
+#' @param d A data frame of patients with matching variables and cohort field
+#' @param match_variables A string vector of variable names to use for matching
+#' @param grouping_variable A string to use as the grouping variable.
+#'
+#' @export
+#' @import ggplot2
+#'
+#' @examples
+#' #Not run
+
 plot_matchvars <- function(d, match_variables, grouping_variable="cohort") {
   
   factor_variables <- names(which(sapply(d[, match_variables], 

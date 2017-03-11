@@ -31,7 +31,7 @@ A list with the elements
 }
 \description{
 The main match controls function to match controls using cem and generate
-an html report and a list of matched controls.
+an html report and a list of matched controls
 }
 \examples{
 #Not run

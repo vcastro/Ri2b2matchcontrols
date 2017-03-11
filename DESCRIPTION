@@ -1,6 +1,6 @@
 Package: Ri2b2matchcontrols
 Type: Package
-Title: Match controls to patients using coarsened exact matching (cem) in i2b2.
+Title: Match controls to patients using coarsened exact matching (cem) in i2b2
 Version: 0.1.0
 Author: Victor M. Castro
 Maintainer: Victor M. Castro <vcastro@mgh.harvard.edu>

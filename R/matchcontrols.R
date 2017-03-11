@@ -1,7 +1,7 @@
 #' matchcontrols
 #' 
 #' The main match controls function to match controls using cem and generate
-#' an html report and a list of matched controls.
+#' an html report and a list of matched controls
 #'
 #' @param d A data frame of patients with matching variables and cohort field
 #' @param case_patientset_name Name of the case patient set (for report)
@@ -18,6 +18,8 @@
 #' \item{matched_controls}{The final list of matched controls (can be used to 
 #'    create an i2b2 patientset)}
 #' @export
+#' @import dplyr
+#' @import tidyr
 #'
 #' @examples
 #' #Not run
@@ -39,7 +41,7 @@ matchcontrols <- function(d, case_patientset_name = "None Given",
   
   
   # run the matching procedure 
-  m <- Ri2b2matchcontrols::cem_match(d, match_variables = match_variables, patientid_variable = "patient_num", controls_to_match = controls_to_match)
+  m <- cem_match(d, match_variables = match_variables, patientid_variable = "patient_num", controls_to_match = controls_to_match)
   
   #generate the report
   a <- rmarkdown::render(system.file("rmd/matchcontrols_report.Rmd", package="Ri2b2matchcontrols"), 
