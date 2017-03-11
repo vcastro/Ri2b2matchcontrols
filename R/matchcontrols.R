@@ -27,7 +27,7 @@ matchcontrols <- function(d, case_patientset_name = "None Given",
 
   
   if(length(levels(d$cohort)) != 2) 
-    stop(paste0("The dataset includes", length(levels(d$cohort)), "cohorts. Only 2 cohorts are allowed (usually Case and Control"))
+    stop(paste0("The dataset includes ", length(levels(d$cohort)), " cohorts. Only 2 cohorts are allowed (usually 'Case' and 'Control')"))
   
   
   # remove cases from controls
@@ -39,7 +39,7 @@ matchcontrols <- function(d, case_patientset_name = "None Given",
   
   
   # run the matching procedure 
-  m <- Ri2b2matchcontrols::cem_match(d, match_variables = match_variables, drop_variables = "patient_num", controls_to_match = controls_to_match)
+  m <- Ri2b2matchcontrols::cem_match(d, match_variables = match_variables, patientid_variable = "patient_num", controls_to_match = controls_to_match)
   
   #generate the report
   a <- rmarkdown::render(system.file("rmd/matchcontrols_report.Rmd", package="Ri2b2matchcontrols"), 

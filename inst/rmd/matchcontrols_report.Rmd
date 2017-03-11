@@ -27,27 +27,21 @@ Control Patients             `r params$controlpool_patientset_name`
 ```{r display_df, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE}
 
 m<-params$match_data
+vars <- m$match_variables
 
-plot_cat <- function(t) {
-  ggplot(t, aes(x=Var1, y=Freq)) + geom_bar(aes(fill=Var2), position="dodge", stat="identity") + xlab("cohort") + theme_bw()
-}
+factor_variables <- names(which(sapply(m$match_data[, match_variables], 
+                                         is.factor) == TRUE))
 
 ```
 
 __Cohort Comparison (before matching)__
 
-```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=3}
-
-vars <- m$match_variables
-
-tableone::CreateTableOne(vars = vars, strata = c("cohort"), data = m$match_data, factorVars = c("gender","race"))
+```{r prematching, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
 
 
-gridExtra::grid.arrange(
-ggplot(m$match_data, aes(x=cohort, y=age)) + geom_boxplot() + theme_bw(),
-plot_cat(data.frame(prop.table(table(m$match_data$cohort, d$gender),1))),
-plot_cat(data.frame(prop.table(table(m$match_data$cohort, d$race),1))), ncol=3)
+tableone::CreateTableOne(vars = vars, strata = c("cohort"), data = m$match_data, factorVars = factor_variables)
 
+plot_matchvars(d, vars)
 
 ```
 
@@ -71,16 +65,13 @@ __Matching Results__
 
 __Cohort Comparison (after matching)__
 
-```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=3}
+```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
 
 final.matched <- m$match_data %>% filter(cohort == "Case" | k2k_control == TRUE)
 
-CreateTableOne(vars = m$match_variables, strata = c("cohort"), data = final.matched, factorVars = c("gender","race"))
+CreateTableOne(vars = m$match_variables, strata = c("cohort"), data = final.matched, factorVars = factor_variables)
 
-gridExtra::grid.arrange(
-ggplot(final.matched, aes(x=cohort, y=age)) + geom_boxplot(),
-plot_cat(data.frame(prop.table(table(final.matched$cohort, final.matched$gender),1))),
-plot_cat(data.frame(prop.table(table(final.matched$cohort, final.matched$race),1))), ncol=3)
+plot_matchvars(final.matched, vars)
 
 m$cem_result$imbalance$L1
 #write.csv(final.matched, "output.csv", row.names = FALSE)

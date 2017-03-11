@@ -1,9 +1,11 @@
-cem_match <- function(d, treatment_variable = "cohort", match_variables = c(), drop_variables = c(), controls_to_match = 1)
+cem_match <- function(d, cohort_variable = "cohort", match_variables = c(), patientid_variable = "patient_num", controls_to_match = 1)
 {
 
   #controls_to_match = 1
   
-  cem_result <- cem::cem(data = d, treatment = "cohort", drop=c("patient_num"), eval.imbalance = TRUE)
+  d <- d[,c(patientid_variable, cohort_variable, match_variables)]
+  
+  cem_result <- cem::cem(data = d, treatment = "cohort", drop=patientid_variable, eval.imbalance = TRUE)
   
   d.matched <- cbind(d, match_strata = cem_result$strata, matched = cem_result$matched)
   
