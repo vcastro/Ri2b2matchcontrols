@@ -65,11 +65,11 @@ __Matching Results__
 
 __Cohort Comparison (after matching)__
 
-```{r echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
+```{r postmatching, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
 
 final.matched <- m$match_data %>% filter(cohort == "Case" | k2k_control == TRUE)
 
-CreateTableOne(vars = m$match_variables, strata = c("cohort"), data = final.matched, factorVars = factor_variables)
+tableone::CreateTableOne(vars = m$match_variables, strata = c("cohort"), data = final.matched, factorVars = factor_variables)
 
 plot_matchvars(final.matched, vars)
 
