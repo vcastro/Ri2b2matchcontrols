@@ -5,7 +5,7 @@ output:
   html_document:
     mathjax: null
     self_contained: true
-    theme: null
+    theme: default
 params:
   match_data: !r list()
   case_patientset_name: "None Given"
