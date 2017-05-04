@@ -4,9 +4,9 @@ date: '`r strftime(Sys.time(), format = "%B %d, %Y")`'
 output: 
   html_document:
     mathjax: null
-    self_contained: true
-    theme: simplex
+    theme: null
     highlight: null
+    lib_dir: assets
 params:
   match_data: !r list()
   case_patientset_name: "None Given"
@@ -15,14 +15,19 @@ params:
 ---
 
 &nbsp;<p />
-__Matching Cohorts__
+### {#match_parameters .parameters_table}
+__Matching Parameters__
 
-Cohort                       Description
+Parameter                    Value
 --------------------------   ----------------------------------------
 Case Patients                `r params$case_patientset_name`
-Control Pool Patients        `r params$controlpool_patientset_name`
+Control Pool Patients&nbsp;  `r params$controlpool_patientset_name`
+Control-to-Case Ratio        `r m$controls_to_match`:1
+Match Variables              `r m$match_variables`
+Matching Technique           Coarsened exact matching (cem)
 
 &nbsp;<p />
+
 
 
 ```{r display_df, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE}
@@ -30,11 +35,13 @@ Control Pool Patients        `r params$controlpool_patientset_name`
 m<-params$match_data
 vars <- m$match_variables
 
+
 factor_variables <- names(which(sapply(m$match_data[, match_variables], 
                                          is.factor) == TRUE))
 
 ```
 
+### {#pre_matching .prematching}
 __Cohort Comparison (before matching)__
 
 ```{r prematching, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
@@ -44,23 +51,17 @@ tableone::CreateTableOne(vars = vars, strata = c("cohort"), data = m$match_data,
 
 plot_matchvars(d, vars)
 
+
+
 ```
 
-&nbsp;<p />
-__Matching Parameters__
-
-Parameter                    Value
---------------------------   ----------------------------------------
-Control-to-Case Ratio        `r m$controls_to_match`:1
-Match Variables              `r m$match_variables`
-Matching Technique           Coarsened exact matching (cem)
-
+** {#post_matching .postmatching}
 &nbsp;<p />
 
 __Matching Results__
 
 *Number of matching strata:* `r nrow(m$strata_summary)`<br />
-*Number of strata with insufficient controls:* `r length(m$strata_summary)`
+*Number of strata with insufficient controls:* `r nrow(filter(m$strata_summary, controls_needed>Control))`
 &nbsp;<p />
 &nbsp;<p />
 

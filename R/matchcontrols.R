@@ -56,6 +56,7 @@ matchcontrols <- function(d, case_patientset_name = "None Given",
        html_file = a,
        match_data = m$match_data,
        cem_data = m$cem_result,
+       strata_summary = m$cem_result,
        matched_controls = m$match_data[which(m$match_data$k2k_control==TRUE), "patient_num"])
   
   

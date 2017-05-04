@@ -15,8 +15,8 @@ cem_match <- function(d, cohort_variable = "cohort", match_variables = c(), pati
     spread(cohort, n) %>%
     mutate(controls_needed = Case*controls_to_match)
   
-  
-  #insufficient_controls <- filter(strata_summary, controls_needed>Control)$match_strata
+  summary(strata_summary)
+  #
 
   
   matched_controls <- d.matched %>%
@@ -33,7 +33,6 @@ cem_match <- function(d, cohort_variable = "cohort", match_variables = c(), pati
   list(cem_result = cem_result,
        match_data = final_match_data,
        strata_summary = strata_summary,
-       controls_to_match = controls_to_match,
        match_variables = match_variables)
   
 }
