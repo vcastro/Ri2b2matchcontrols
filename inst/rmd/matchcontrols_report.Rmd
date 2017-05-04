@@ -5,8 +5,12 @@ output:
   html_document:
     mathjax: null
     self_contained: true
+<<<<<<< HEAD
     theme: simplex
     highlight: null
+=======
+    theme: default
+>>>>>>> 20ab72705c5e7bf988e643c3c050153d175fc432
 params:
   match_data: !r list()
   case_patientset_name: "None Given"
