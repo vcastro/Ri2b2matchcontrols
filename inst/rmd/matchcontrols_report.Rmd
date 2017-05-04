@@ -4,7 +4,8 @@ date: '`r strftime(Sys.time(), format = "%B %d, %Y")`'
 output: 
   html_document:
     mathjax: null
-    theme: default
+    theme: null
+    self_contained: true
 params:
   match_data: !r list()
   case_patientset_name: "None Given"
@@ -39,7 +40,6 @@ factor_variables <- names(which(sapply(m$match_data[, match_variables],
 
 ```
 
-## Matching Results {.tabset .tabset-fade .tabset-pills}
 
 ###  Pre-matching comparisons {#pre_matching .prematching}
 __Pre-matching comparisons__
