@@ -26,8 +26,8 @@ plot_matchvars <- function(d, match_variables, grouping_variable="cohort") {
   f_plots <- lapply(factor_variables, function(.x) plot_cat_histogram(d, .x, grouping_variable))
   n_plots <- lapply(numeric_variables, function(.x) plot_num_boxplot(d, .x, grouping_variable))
   
-  gridExtra::grid.arrange(grobs=c(f_plots, n_plots), ncol=plot_cols)
-  
+  g <- gridExtra::marrangeGrob(grobs=c(f_plots, n_plots), ncol=plot_cols, nrow=2)
+  g
 }
 
 
