@@ -33,6 +33,7 @@ cem_match <- function(d, cohort_variable = "cohort", match_variables = c(), pati
   list(cem_result = cem_result,
        match_data = final_match_data,
        strata_summary = strata_summary,
-       match_variables = match_variables)
+       match_variables = match_variables,
+       controls_to_match = controls_to_match)
   
 }
