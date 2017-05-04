@@ -27,6 +27,7 @@ plot_matchvars <- function(d, match_variables, grouping_variable="cohort") {
   n_plots <- lapply(numeric_variables, function(.x) plot_num_boxplot(d, .x, grouping_variable))
   
   gridExtra::grid.arrange(grobs=c(f_plots, n_plots), ncol=plot_cols)
+  
 }
 
 
