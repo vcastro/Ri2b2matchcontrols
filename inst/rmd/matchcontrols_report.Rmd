@@ -1,6 +1,5 @@
 ---
-title: "Match Controls Results"
-date: '`r strftime(Sys.time(), format = "%B %d, %Y")`'
+title: "Matched Controls Results"
 output: 
   html_document:
     mathjax: null
@@ -13,7 +12,6 @@ params:
   
 ---
 
-&nbsp;<p />
 ### {#match_parameters .parameters_table} 
 __Matching Parameters__
 
@@ -42,7 +40,6 @@ factor_variables <- names(which(sapply(m$match_data[, match_variables],
 
 
 ###  Pre-matching comparisons {#pre_matching .prematching}
-__Pre-matching comparisons__
 
 ```{r prematching, echo=FALSE, warning=FALSE, comment=NA, as.is=TRUE, fig.width=10, fig.height=4}
 
@@ -58,7 +55,6 @@ plot_matchvars(d, vars)
 ### Post-matching comparisons {#post_matching .postmatching} 
 &nbsp;<p />
 
-__Post-matching comparisons__
 
 *Number of matching strata:* `r nrow(m$strata_summary)`<br />
 *Number of strata with insufficient controls:* `r nrow(filter(m$strata_summary, controls_needed>Control))`

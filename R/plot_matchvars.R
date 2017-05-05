@@ -33,20 +33,20 @@ plot_matchvars <- function(d, match_variables, grouping_variable="cohort") {
 plot_cat_histogram <- function(d, plot_variable, grouping_variable = "cohort") {
   
   t <- data.frame(prop.table(table(d[, grouping_variable], d[, plot_variable]), 1))
-  names(t) <- c(plot_variable, grouping_variable, "Freq")
+  names(t) <- c(plot_variable, grouping_variable, "Frequency")
   
-  ggplot(t, aes(x = get(plot_variable), y = Freq)) + 
-    geom_bar(aes(fill = get(grouping_variable)), position = "dodge", stat = "identity") + 
-    xlab("cohort") + 
+  ggplot(t, aes(x = get(plot_variable), y = Frequency)) + 
+    geom_bar(aes(fill = get(grouping_variable)), stat = "identity") + 
+    xlab("") +
     theme_bw() + 
-    guides(fill = guide_legend(title = grouping_variable))
+    guides(fill = guide_legend(title = plot_variable))
   
 }
 
 plot_num_boxplot <- function(d, plot_variable, grouping_variable = "cohort") {
   
  ggplot(d, aes(x = get(grouping_variable), y = get(plot_variable))) + 
-    geom_boxplot() + 
+    geom_boxplot(notch = TRUE) + 
     theme_bw() + 
     ylab(plot_variable) + 
     xlab(grouping_variable)
