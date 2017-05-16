@@ -12,8 +12,7 @@ params:
   
 ---
 
-### {#match_parameters .parameters_table} 
-__Matching Parameters__
+### Matching Parameters {#match_parameters .parameters_table} 
 
 Parameter                    Value
 --------------------------   ----------------------------------------
