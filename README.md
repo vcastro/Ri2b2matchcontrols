@@ -13,10 +13,9 @@ RStudio must be installed to run this package.  [[https://www.rstudio.com/produc
 The package can be installed directly from Partners GitLab:
 
 ``` r
+
+The package can be installed directly from Github/Gitlab
+
 install.packages("devtools")
 
-## Windows credentials store (will be different in Mac)
-creds = git2r::cred_ssh_key("C:\\Users\\{username}\\.ssh\\id_rsa.pub", "C:\\Users\\{username}\\.ssh\\id_rsa")
-
-devtools::install_git("git@gitlab.partners.org:vc070/Ri2b2matchcontrols.git", credentials = creds)
-```
+devtools::install_github("vcastro/Ri2b2matchcontrols")
